@@ -1,6 +1,7 @@
 
 
 #1. read quality check
+
 *code
 perl ngsShoRT.pl -pe1 <forward_sequence> -pe2 <backward_sequence> -o ../trim/<folder> -methods lqr -lqs 4 -lqp 50(recommanded) -t <cpu_num>
 
@@ -15,6 +16,7 @@ output file : trimmed_*.fastq
 
 
 #2. frequency test
+
 *code
 python frequency.py <folder> <bp>
   ex) python frequency.py 'trimmed_raw/r2/' 6
@@ -24,6 +26,7 @@ output file : frequency.txt
 
 
 #3. remove_redundancy
+
 *code
 python remove_redundancy.py <folder>
   
@@ -32,6 +35,7 @@ output file : rm_redundancy_*.fastq
 
 
 #4. enzyme_site_selection
+
 *code
 python enzyme_site_selection.py <folder> <enz1seq> <enz2seq>
   ex) python enzyme_site_selection.py rm_redundancy/ CCTGCA/GG GC/GGCCGC
@@ -41,6 +45,7 @@ python enzyme_site_selection.py <folder> <enz1seq> <enz2seq>
 
 
 #5. by using cat, R1,R2 merge (if exist)
+
 *code
 cat selected_*<>.fastq > merged<>.fastq 
 and reapeat to every file
@@ -52,6 +57,7 @@ output file : merged<>.fastq
 
 
 #6. making cluster using usearch (each file)
+
 *code
 ./usearch10.0.240_i86linux32 -id 0.9 -cluster_fast merge<>.fasta  -uc <>.uc
   ex) ./usearch10.0.240_i86linux32 -id 0.9 -cluster_fast merge001.fasta  -uc 001.uc
