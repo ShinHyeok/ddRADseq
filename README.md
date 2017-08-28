@@ -8,7 +8,7 @@ perl ngsShoRT.pl -pe1 <forward_sequence> -pe2 <backward_sequence> -o ../trim/<fo
 
 \*setting  
 sudo perl -MCPAN - shell  
-perl code-installing packages  
+(perl code- to install packages)  
   install String::Approx  
   install PerlIO::gzip  
 
