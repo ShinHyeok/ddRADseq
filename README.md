@@ -102,5 +102,5 @@ python arrange_result.py <standard_number>
 input : merged.fasta, results.uc  
 output : arranged_cluster.txt
 
-Version 0.1
+Version 0.1  
 2017.08.28
