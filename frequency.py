@@ -1,7 +1,7 @@
 import sys, os, re
 
 folder = sys.argv[1]
-bp = sys.argv[2]
+bp = int(sys.argv[2])
 
 def selected_file_list(input_dir):
     file_list = []
