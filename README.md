@@ -49,11 +49,11 @@ python enzyme_site_selection.py <folder> <enz1seq> <enz2seq>
 
 \*code  
 cat selected_$<>.fastq > merged<>.fastq  
-and reapeat to every file  
+merge every file
   ex) cat selected_\*001.fastq > merged001.fasta  
       cat selected_\*002.fastq > merged002.fasta  
       .....  
-input file : selected_*<>.fastq  
+input file : selected_$<>.fastq  
 output file : merged<>.fastq  
 
 
@@ -62,10 +62,40 @@ output file : merged<>.fastq
 \*code  
 ./usearch10.0.240_i86linux32 -id 0.9 -cluster_fast merge<>.fasta  -uc <>.uc  
   ex) ./usearch10.0.240_i86linux32 -id 0.9 -cluster_fast merge001.fasta  -uc 001.uc  
+make cluster of every file.
+
+# 7. remove useless reads
+some reads has variable pattern in single sample so we can't use those reads to analyze
+
+\*code  
+python rm_single_batch.py  
+
+input : <>.uc, selected_$.fastq  
+output : rm_singlebatch_<>.fasta
+
+# 8. by using cat, merge every files to make cluster
+
+\*code
+cat rm_singlebatch\* > merged.fasta
+
+input : rm_singlebatch_<>.fasta  
+output : merged.fasta
+
+# 9. Again, make cluster by using usearch
+
+\*code  
+./usearch10.0.240_i86linux32 -id 0.9 -cluster_fast merged.fasta  -uc results.uc  
 
 
-7. arrange
+input : merged.fasta  
+output : results.uc
 
-8. cat이용, 모든 arranged file merge
+# 10. arrange results, select cluster
 
-9. 다시 usearch로 cluster를 찾는다.
+\*code
+python arrange_result.py <standard_number>  
+  ex) python arrange_result.py 6
+
+input : merged.fasta, results.uc  
+output : arranged_cluster.txt
+
