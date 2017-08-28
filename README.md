@@ -12,8 +12,8 @@ sudo perl -MCPAN - shell
   install String::Approx
   install PerlIO::gzip
 
-input file : raw_file_folder/*.fastq
-output file : trimmed_*.fastq
+input file : raw_file_folder/@.fastq
+output file : trimmed_@.fastq
 
 
 # 2. frequency test
@@ -22,7 +22,7 @@ output file : trimmed_*.fastq
 python frequency.py <folder> <bp>
   ex) python frequency.py 'trimmed_raw/r2/' 6
 
-input file : *.fastq
+input file : @.fastq
 output file : frequency.txt
 
 
@@ -31,8 +31,8 @@ output file : frequency.txt
 *code*
 python remove_redundancy.py <folder>
   
-input file : trimmed_*.fastq
-output file : rm_redundancy_*.fastq
+input file : trimmed_@.fastq
+output file : rm_redundancy_@.fastq
 
 
 # 4. enzyme_site_selection
@@ -41,17 +41,17 @@ output file : rm_redundancy_*.fastq
 python enzyme_site_selection.py <folder> <enz1seq> <enz2seq>
   ex) python enzyme_site_selection.py rm_redundancy/ CCTGCA/GG GC/GGCCGC
   
- input file : rm_redundancy_*.fastq
- output file : selected_*.fastq
+ input file : rm_redundancy_@.fastq
+ output file : selected_@.fastq
 
 
 # 5. by using cat, R1,R2 merge (if exist)
 
 *code*
-cat selected_*<>.fastq > merged<>.fastq 
+cat selected_@<>.fastq > merged<>.fastq 
 and reapeat to every file
-  ex) cat selected_*001.fastq > merged001.fasta
-      cat selected_*002.fastq > merged002.fasta
+  ex) cat selected_@001.fastq > merged001.fasta
+      cat selected_@002.fastq > merged002.fasta
       .....
 input file : selected_*<>.fastq
 output file : merged<>.fastq
