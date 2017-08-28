@@ -64,6 +64,9 @@ output file : merged<>.fastq
   ex) ./usearch10.0.240_i86linux32 -id 0.9 -cluster_fast merge001.fasta  -uc 001.uc  
 make cluster of every file.
 
+input : merged<>.fastq  
+output : <>.uc
+
 # 7. remove useless reads
 some reads has variable pattern in single sample so we can't use those reads to analyze
 
@@ -99,3 +102,5 @@ python arrange_result.py <standard_number>
 input : merged.fasta, results.uc  
 output : arranged_cluster.txt
 
+Version 0.1
+2017.08.28
