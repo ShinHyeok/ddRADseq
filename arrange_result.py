@@ -36,7 +36,7 @@ with open('results.uc','r') as f:
                 arrange[cluster] = [std_c,name_c]
 
                 
-w = open('test.txt', 'w')
+w = open('arranged_cluster.txt', 'w')
 #k : cluster number
 #v : each sequence name with information in cluster
 for k,v in arrange.items():
