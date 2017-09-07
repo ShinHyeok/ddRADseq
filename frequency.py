@@ -54,4 +54,4 @@ w = open('frequency.txt', 'w')
 # only print frequency more than 100000
 for k,v in frequency.items():
     if v > 9999:
-        w.write(k+'\t'+v+'\n')
+        w.write(k+'\t'+str(v)+'\n')
