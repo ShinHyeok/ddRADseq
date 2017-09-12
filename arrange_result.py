@@ -31,12 +31,13 @@ with open('results.uc','r') as f:
                 name_c = name+'_'+identitiy+'_'+matching
                 arrange[cluster].append(name_c)
             else:
-                std_c = std+'_101.0_'+length+'M' #to distinguish standard sequence, we use 101 rather than 100
+                std_len = str(len(index_seq[std]))
+                std_c = std+'_101.0_'+std_len+'M' #to distinguish standard sequence, we use 101 rather than 100
                 name_c = name+'_'+identitiy+'_'+matching
                 arrange[cluster] = [std_c,name_c]
 
                 
-w = open('arranged_cluster.txt', 'w')
+w = open('arranged_cluster_tt.txt', 'w')
 #k : cluster number
 #v : each sequence name with information in cluster
 for k,v in arrange.items():
@@ -53,25 +54,26 @@ for k,v in arrange.items():
         tmp_list = sorted(set(tmp_list))
         if len(tmp_list) < criteria:
             continue
-            
         for select in value:
-            scr = float(select.split('_')[1]) # identity
+            scr = select.split('_')[2] # match_score
+            test = re.findall(r'[0-9]*M|[0-9]*I|[0-9]*D',select)
+            test = int(test[0][:-1])
             match.append(select.split('_')[2]) # how to match
-            score.append(scr)
-        
+            score.append(test)
         #depend on score, re-arrange seq-name and matching information
         # this will give std matching information first, so that we can compare other sequence with standard
         value = [x for _,x in sorted(zip(score,value),reverse=True)]
         match = [x for _,x in sorted(zip(score,match),reverse=True)]
-        
         tmp_pt = ''
         #to set cluster with best comparing condition, we note how all of the sequence in cluster match together
+        std_count = 1
         for point in match:
             test =re.findall(r'[0-9]*M|[0-9]*I|[0-9]*D',point)
             #if there is no inset-delete comparing
-            if len(test) == 1:
+            if std_count == 1:
                 if len(tmp_pt) < int(point.split('M')[0]):
                     tmp_pt = '*'* int(point.split('M')[0])
+                std_count = 0
             else:
                 i = 0
                 replace = []
@@ -116,10 +118,8 @@ for k,v in arrange.items():
                                     D -=1
                                 else:#insert deletion information
                                     fin_pt = tmp_pt[:a+1]+'-'*D+tmp_pt[a+1:]
-                                    
                         #note and update the template status by other sequence in cluster
                         tmp_pt =fin_pt
-            
         new_value = []
         for read in value:
             seq_sel = read.split('_')[0]
@@ -157,14 +157,6 @@ for k,v in arrange.items():
             seq_count = 0
             tmp_count = 0
 
-            cnt =0
-            # this will be manually set up. --- error escape > 잘못짬
-            for counting in tmp_pt:
-                if counting == '*':
-                    cnt += 1
-            if cnt > 79:
-                continue
-
             #write sequence on template
             for test_letter in tmp_pt:
                 if tmp_count == len(seq_tmp):
@@ -185,10 +177,10 @@ for k,v in arrange.items():
 
             seq_result = seq_result.ljust(len(tmp_pt),'-')
             name = read.split('_')[0] + '_' + read.split('_')[1] + '_' + read.split('_')[2]
-            name = name.ljust(40)
+            name = name.ljust(45)
             new_value.append(name+seq_result)
 
-        w.write('cluster#'+k.ljust(32) + tmp_pt + '\n')
+        w.write('cluster#'+k.ljust(37) + tmp_pt + '\n')
         new_value.sort()
         for nv in new_value:
             w.write(nv + '\n')
