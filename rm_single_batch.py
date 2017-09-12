@@ -12,6 +12,8 @@ file_list = selected_file_list('./')
 
                 
 for thefile in file_list:
+    if not thefile[3] == 't':
+        continue
     print thefile
     w = open('rm_singlebatch_'+thefile.replace('uc','fasta'), 'w')
     
