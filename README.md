@@ -78,7 +78,7 @@ output : rm_singlebatch_<>.fasta
 
 # 8. by using cat, merge every files to make cluster
 
-\*code
+\*code  
 cat rm_singlebatch\* > merged.fasta
 
 input : rm_singlebatch_<>.fasta  
@@ -95,7 +95,7 @@ output : results.uc
 
 # 10. arrange results, select cluster
 
-\*code
+\*code  
 python arrange_result.py <standard_number>  
   ex) python arrange_result.py 6 
   #which mean only collect information having sequence of at least 6 sample
@@ -105,7 +105,7 @@ output : arranged_cluster.txt
 
 # 11. clean up cluster
 
-\*code
+\*code  
 python 1by1_matching.py
 
 input : arranged_cluster.txt
