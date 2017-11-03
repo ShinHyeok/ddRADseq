@@ -43,13 +43,13 @@ python enzyme_site_selection.py [folder] [enz1seq] [enz2seq]
 (if don't need, skip this step)
 
 \*code  
-cat selected_$<>.fastq > merged<>.fastq  
+cat selected_\*$.fastq > merged$.fastq  
 merge every file
   ex) cat selected_\*001.fastq > merged001.fasta  
       cat selected_\*002.fastq > merged002.fasta  
       .....  
-input file : selected_$<>.fastq  
-output file : merged<>.fasta  
+input file : selected_R1_$.fastq, selected_R2_$.fastq  
+output file : merged$.fasta  
 
 
 # 6. making cluster using usearch (each file)
@@ -67,7 +67,7 @@ some reads has variable pattern in single sample so we can't use those reads to 
 
 \*code  
 python rm_single_batch.py  
-(all file should exist in same directory)
+(all file should exist in same directory)  
 
 input : $.uc, selected_$.fastq  
 output : rm_singlebatch_$.fasta
@@ -93,7 +93,7 @@ output : results.uc
 
 \*code  
 python arrange_result.py [standard_number]  
-  ex) python arrange_result.py 6 
+  ex) python arrange_result.py 6  
   #which mean only collect information read that more than 6 sample is sharing similar sequence.
 
 input : merged.fasta, results.uc  
