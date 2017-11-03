@@ -105,5 +105,5 @@ python 1by1_matching.py
 input : arranged_cluster.txt
 output : cleared_cluster.txt
 
-Version 0.2
-2017.09.01
+Version 0.3  
+2017.11.03
