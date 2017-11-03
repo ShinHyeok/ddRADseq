@@ -4,16 +4,10 @@
 
 \*code
 
-perl ngsShoRT.pl -pe1 <forward_sequence> -pe2 <backward_sequence> -o ../trim/<folder> -methods lqr -lqs 4 -lqp 50(recommanded) -t <cpu_num>
+python trimming.py <folder>  
 
-\*setting  
-sudo perl -MCPAN - shell  
-(perl code- to install packages)  
-  install String::Approx  
-  install PerlIO::gzip  
-
-input file : raw_file_folder/$.fastq  
-output file : trimmed_$.fastq
+input file : <folder>/raw_$.fastq  
+output file : <folder>/trimmed_$.fastq
 
 
 # 2. frequency test
