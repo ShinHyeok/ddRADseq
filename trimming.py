@@ -33,8 +33,8 @@ for thefile in file_list:
                 quality = line.strip()
                 len_qual = len(quality)
                 board = 0
-                for base_qual in range(len_qual): #Check every base
-                    if ord(tmp_qual) < 53: #How many base has low quality is recorded. Standard is 20(1% error rate)
+                for base_qual in quality: #Check every base
+                    if ord(base_qual) < 53: #How many base has low quality is recorded. Standard is 20(1% error rate)
                         board += 1
                 if not board*2 >= len_qual: #More than half of sequence must have score higher than 20
                     w.write(seq_name+'\n'+seq+'\n'+'+\n'+quality+'\n')
